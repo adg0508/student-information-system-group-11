@@ -1,6 +1,0 @@
-[build]
-builder = "DOCKERFILE"
-
-[deploy]
-preDeployCommand = "flask --app app ensure-db"
-healthcheckPath = "/login"

@@ -6,4 +6,4 @@ COPY app.py database.sql ./
 COPY static/ static/
 COPY templates/ templates/
 USER sis
-CMD ["sh", "-c", "exec gunicorn --preload --bind 0.0.0.0:${PORT:-5000} app:app"]
+CMD ["sh", "-c", "flask --app app ensure-db && exec gunicorn --preload --bind 0.0.0.0:${PORT:-5000} app:app"]
