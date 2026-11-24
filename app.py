@@ -215,5 +215,21 @@ def init_db():
     click.echo('Created seven tables and loaded the sample records.')
 
 
+@app.cli.command('ensure-db')
+def ensure_db():
+    """Initialize a new hosted database and keep existing records on redeploy."""
+    script = Path(__file__).with_name('database.sql').read_text(encoding='utf-8')
+    statements = [line for line in script.splitlines() if line.strip() not in ('BEGIN;', 'COMMIT;')]
+    with connect() as conn:
+        conn.execute('SELECT pg_advisory_xact_lock(341, 11)')
+        exists = conn.execute("SELECT to_regnamespace('sis') AS schema").fetchone()['schema']
+        if exists is None:
+            conn.execute('\n'.join(statements), prepare=False)
+        else:
+            for table in TABLES:
+                conn.execute(sql.SQL('SELECT 1 FROM {} LIMIT 0').format(sql.Identifier('sis', table)))
+    click.echo('The seven project tables are ready.')
+
+
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=5000, debug=False)

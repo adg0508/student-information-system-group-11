@@ -13,4 +13,4 @@ These accounts are for the course demo. Only password hashes are used by the app
 The three report queries are in `queries.sql`.
 
 ## Hosted setup
-For Supabase, open the SQL Editor in the project and run `database.sql` once in a database without the `sis` schema. Keep this schema private. In Railway, deploy the Dockerfile and set `DATABASE_URL` to the Supabase Session pooler connection string with SSL enabled. Set `SECRET_KEY` to a random private value to keep sessions valid across restarts. Generate a public HTTPS domain for the web service.
+Railway runs `flask --app app ensure-db` before deployment. On the first run it creates the private sis schema with seven tables and sample records. Later runs keep existing records. In Railway, deploy the Dockerfile and set `DATABASE_URL` to the Supabase Session pooler connection string with SSL enabled. Set `SECRET_KEY` to a random private value to keep sessions valid across restarts. Generate a public HTTPS domain for the web service.
