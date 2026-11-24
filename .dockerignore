@@ -1,0 +1,8 @@
+*
+!requirements.txt
+!app.py
+!database.sql
+!static
+!static/**
+!templates
+!templates/**
