@@ -1,4 +1,4 @@
--- Query 1: Students and their courses in Fall 2026-2027 (JOIN).
+-- 1. Which courses did each student take in fall 2026-2027?
 SELECT s.student_no,
        s.first_name || ' ' || s.last_name AS student,
        c.code AS course, cs.section_no, e.grade
@@ -10,8 +10,7 @@ JOIN sis.semester AS sem ON sem.semester_id = cs.semester_id
 WHERE sem.academic_year = '2026-2027' AND sem.term = 'Fall'
 ORDER BY s.student_no, c.code;
 
--- Query 2: Distinct student counts and recorded grade averages
--- in Fall 2026-2027 (GROUP BY and ORDER BY).
+-- 2. How many students took each course in fall 2026-2027, and what was their average grade?
 SELECT c.code AS course, COUNT(DISTINCT e.student_id) AS students,
        ROUND(AVG(e.grade), 2) AS average_grade
 FROM sis.course AS c
@@ -22,8 +21,7 @@ WHERE sem.academic_year = '2026-2027' AND sem.term = 'Fall'
 GROUP BY c.course_id, c.code
 ORDER BY students DESC, c.code;
 
--- Query 3: Students above their section average in CMPE341,
--- section 1, Fall 2026-2027 (correlated subquery).
+-- 3. Who scored above the class average in section 1 of CMPE341 in fall 2026-2027?
 SELECT s.student_no,
        s.first_name || ' ' || s.last_name AS student, e.grade
 FROM sis.student AS s
