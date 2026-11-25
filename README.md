@@ -1,18 +1,22 @@
 # Student Information System Database
-CMPE341, Group 11.
 
-Open the [live application](https://web-production-8249f41a.up.railway.app).
+CMPE341, Group 11
 
-Run `docker compose up` from the project folder. Open http://localhost:5081.
-Docker starts PostgreSQL and the Flask app. The first start loads the seven tables and sample records. The database volume keeps changes across restarts. Run `docker compose down` to stop.
+[Open the Student Information System](https://web-production-8249f41a.up.railway.app) and sign in with one of the accounts below. Use the admin account to try the forms shown in the report.
 
-| Username | Test password | Permissions |
+| Username | Password | What you can do |
 | --- | --- | --- |
-| admin | Group11-demo-admin | View, add, update and delete sample records |
-| reader | Group11-demo-reader | View records |
+| `admin` | `Group11-demo-admin` | View, add, edit and delete records |
+| `reader` | `Group11-demo-reader` | View records in all seven tables |
 
-These accounts are for the course demo. Only password hashes are used by the application.
-The three report queries are in `queries.sql`.
+## Run the project locally
 
-## Hosted setup
-Railway runs the Dockerfile. Supabase stores the course records in PostgreSQL. The container checks that the seven project tables are ready before starting the web app. For a new hosted setup, run database.sql once as the database owner. Set DATABASE_URL in Railway to the SSL session pooler connection for an application account with access to the sis tables and sequences. Set SECRET_KEY to a random private value and generate a public domain for the web service.
+After cloning the repository, open the project folder and run:
+
+```sh
+docker compose up
+```
+
+Open [localhost:5081](http://localhost:5081) and use the same accounts. On the first run, Docker creates the PostgreSQL tables and loads the sample records from `database.sql`. Run `docker compose down` to stop the app. Your changes are saved in the database volume.
+
+The live site runs on Railway and uses a Supabase PostgreSQL database. The three queries from the report are in [queries.sql](queries.sql).
